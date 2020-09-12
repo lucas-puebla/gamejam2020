@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 	private Rigidbody2D rb;
+	public UIManager uiManager;
 
 	// Movement
 	private float velX;
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
 		dashCooldownTimer = new Timer(dashCooldownTime);
         rb = GetComponent<Rigidbody2D>();
 		rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+		uiManager = GetComponent<UIManager>();
     }
 
     void Update() {
@@ -48,7 +50,22 @@ public class PlayerMovement : MonoBehaviour
         // Countdowns
         dashTimer.countDown();
         dashCooldownTimer.countDown();
+
+    	if (!PlayerStats.playerAlive()) {
+    		uiManager.UIplayerDead();
+    	}
+
+        if (Input.GetButtonDown("Fire1")) {
+        	PlayerStats.lifeLost();
+        	uiManager.UIlifeUpdate();
+        }
+        if (Input.GetButtonDown("Dash")) {
+        	PlayerStats.lifeRecovered();
+        	uiManager.UIlifeUpdate();
+        }
     }
+
+
 
     // Update is called once per frame
     void FixedUpdate()
