@@ -12,12 +12,14 @@ public static class PlayerStats {
 											.FindGameObjectWithTag("Player")
 											.GetComponent<UIManager>();
 
+	public static float angle;
+	public static bool isIdle;
+
 	public static void lifeLost(float amount = 1f) {
-		if(!PlayerStats.invincibleTimer.isEnabled()){
+		if (!PlayerStats.invincibleTimer.isEnabled()){
 			lifeMod(-amount);
 			PlayerStats.invincibleTimer.reset();
-		}
-		
+		}	
 	}
 
 	public static void lifeRecovered(float amount = 1f) {
