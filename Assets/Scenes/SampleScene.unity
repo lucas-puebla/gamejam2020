@@ -478,7 +478,7 @@ GameObject:
   - component: {fileID: 945113867}
   m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -580,10 +580,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d42fc998146fa54db3e18bfd0f7cb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiManager: {fileID: 0}
   speed: 1
   dashCooldownTime: 2
   dashTime: 0.1
   dashSpeed: 5
+  debug: 1
 --- !u!61 &945113866
 BoxCollider2D:
   m_ObjectHideFlags: 0

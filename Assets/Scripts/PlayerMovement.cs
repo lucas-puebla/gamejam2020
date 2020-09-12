@@ -22,6 +22,9 @@ public class PlayerMovement : MonoBehaviour
 	public float dashTime = 0.15f;
 	public float dashSpeed = 5f;
 
+	// debug
+	public bool debug = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,17 +54,18 @@ public class PlayerMovement : MonoBehaviour
         dashTimer.countDown();
         dashCooldownTimer.countDown();
 
-    	if (!PlayerStats.playerAlive()) {
+        // TODO Remove this
+        if (debug) {
+        	if (!PlayerStats.playerAlive()) {
     		uiManager.UIplayerDead();
-    	}
+	    	}
 
-        if (Input.GetButtonDown("Fire1")) {
-        	PlayerStats.lifeLost();
-        	uiManager.UIlifeUpdate();
-        }
-        if (Input.GetButtonDown("Dash")) {
-        	PlayerStats.lifeRecovered();
-        	uiManager.UIlifeUpdate();
+	        if (Input.GetButtonDown("Fire1")) {
+	        	PlayerStats.lifeLost();
+	        }
+	        if (Input.GetButtonDown("Dash")) {
+	        	PlayerStats.lifeRecovered();
+	        }
         }
     }
 
@@ -76,5 +80,13 @@ public class PlayerMovement : MonoBehaviour
     void setSpeed(float speed) {
     	velX = Input.GetAxisRaw("Horizontal") * speed;
         velY = Input.GetAxisRaw("Vertical") * speed;
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+    	if (other.gameObject.tag == "Hole") {
+    		PlayerStats.lifeLost();
+    		// TODO consider rewsetting position when entering hole
+    		// TODO when dashing, player is invincible
+    	}
     }
 }

@@ -6,6 +6,9 @@ public static class PlayerStats {
 	private static float maxLife = 3f;
 	private static float life = maxLife;
 	private static bool isAlive = true;
+	private static UIManager uiManager = GameObject
+											.FindGameObjectWithTag("Player")
+											.GetComponent<UIManager>();
 
 	public static void lifeLost(float amount = 1f) {
 		lifeMod(-amount);
@@ -35,5 +38,6 @@ public static class PlayerStats {
 				life = temp;
 			}
 		}
+		uiManager.UIlifeUpdate();
 	}
 }
