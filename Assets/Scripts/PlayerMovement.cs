@@ -6,6 +6,12 @@ public class PlayerMovement : MonoBehaviour
 {
 	private Rigidbody2D rb;
 	public UIManager uiManager;
+	public ParticleSystem dust;
+
+	// Respawn
+	private Transform transform;
+	private Vector2 lastPos;
+
 
 	// Movement
 	private float velX;
@@ -25,18 +31,24 @@ public class PlayerMovement : MonoBehaviour
 	// debug
 	public bool debug = true;
 
+	//Mouse Movement
+	public Camera cam;
+	Vector2 mousePos;
+
     // Start is called before the first frame update
     void Start()
     {
     	dashTimer = new Timer(dashTime);
 		dashCooldownTimer = new Timer(dashCooldownTime);
         rb = GetComponent<Rigidbody2D>();
-		rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+		//rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 		uiManager = GetComponent<UIManager>();
+		transform = GetComponent<Transform>();
     }
 
     void Update() {
     	if (Input.GetButtonDown("Dash") && !dashCooldownTimer.isEnabled()) {
+			CreateDust();
     		dashTimer.reset();
     		dashCooldownTimer.reset();
     		// TODO when entering dash mode, cannot be damaged
@@ -53,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         // Countdowns
         dashTimer.countDown();
         dashCooldownTimer.countDown();
-
+		PlayerStats.invincibleTimer.countDown();
         // TODO Remove this
         if (debug) {
         	if (!PlayerStats.playerAlive()) {
@@ -67,6 +79,8 @@ public class PlayerMovement : MonoBehaviour
 	        	PlayerStats.lifeRecovered();
 	        }
         }
+
+		mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
 
@@ -75,6 +89,10 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
        	rb.velocity = movement;
+
+		Vector2 lookDir = mousePos - rb.position;
+		float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+		rb.rotation = angle;
     }
 
     void setSpeed(float speed) {
@@ -82,11 +100,31 @@ public class PlayerMovement : MonoBehaviour
         velY = Input.GetAxisRaw("Vertical") * speed;
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerEnter2D(Collider2D other) {
     	if (other.gameObject.tag == "Hole") {
-    		PlayerStats.lifeLost();
+			if(!dashTimer.isEnabled()){
+				PlayerStats.lifeLost();
+				rb.position = new Vector2(0, 0);
+			}
+			Debug.Log("Hole Enter");
     		// TODO consider rewsetting position when entering hole
     		// TODO when dashing, player is invincible
     	}
+		if(other.gameObject.tag == "Respawn"){
+			lastPos = transform.position;
+			Debug.Log("Last Pos: " + lastPos.x + ", " + lastPos.y);
+			
+		}
+		
     }
+
+	private void OnTriggerStay2D(Collider2D other) {
+		
+	}
+
+
+	//We create the dust in the action we want
+	void CreateDust(){
+		dust.Play();
+	}
 }

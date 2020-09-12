@@ -6,12 +6,18 @@ public static class PlayerStats {
 	private static float maxLife = 3f;
 	private static float life = maxLife;
 	private static bool isAlive = true;
+	private static float invincibleTime = 2f; 
+	public static Timer invincibleTimer = new Timer(invincibleTime);
 	private static UIManager uiManager = GameObject
 											.FindGameObjectWithTag("Player")
 											.GetComponent<UIManager>();
 
 	public static void lifeLost(float amount = 1f) {
-		lifeMod(-amount);
+		if(!PlayerStats.invincibleTimer.isEnabled()){
+			lifeMod(-amount);
+			PlayerStats.invincibleTimer.reset();
+		}
+		
 	}
 
 	public static void lifeRecovered(float amount = 1f) {
@@ -20,6 +26,11 @@ public static class PlayerStats {
 
 	public static bool playerAlive() {
 		return isAlive;
+	}
+
+	public static void playerDead(){
+		isAlive = false;
+		uiManager.UIplayerDead();
 	}
 
 	public static float playerLife() {
@@ -33,7 +44,7 @@ public static class PlayerStats {
 				life = maxLife;
 			} else if(temp <= 0) {
 				life = 0;
-				isAlive = false;
+				playerDead();
 			} else {
 				life = temp;
 			}
