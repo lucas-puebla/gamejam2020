@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     	dashTimer = new Timer(dashTime);
 		dashCooldownTimer = new Timer(dashCooldownTime);
         rb = GetComponent<Rigidbody2D>();
+		rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     void Update() {
