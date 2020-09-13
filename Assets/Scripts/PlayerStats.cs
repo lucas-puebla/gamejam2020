@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class PlayerStats {
 	private static int maxLife = 3;
@@ -35,6 +36,13 @@ public static class PlayerStats {
 
 	public static void playerDead(){
 		isAlive = false;
+		SceneManager.LoadScene("Game Over");
+		playerResetLife();
+	}
+
+	public static void playerResetLife() {
+		isAlive = true;
+		life = maxLife;
 	}
 
 	public static int playerLife() {

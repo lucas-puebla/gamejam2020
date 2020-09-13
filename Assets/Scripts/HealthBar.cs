@@ -9,7 +9,7 @@ public class HealthBar : MonoBehaviour
 
 	public void Start() {
 		slider = GetComponent<Slider>();
-		InvokeRepeating("updateHealth", 0.5f, 0.3f);
+		InvokeRepeating("updateHealth", 0f, 0.3f);
 	}
 
     public void updateHealth() {

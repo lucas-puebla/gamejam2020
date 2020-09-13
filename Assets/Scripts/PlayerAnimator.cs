@@ -7,16 +7,29 @@ public class PlayerAnimator : MonoBehaviour
 
 	private Animator anim;
 	private Transform transform;
+	private SpriteRenderer spriteRend;
 
 	public GameObject afterImageLeft;
 	public GameObject afterImageRight;
-	public float afterImageLifetime = 0.1f; 
+	public float afterImageLifetime = 0.1f;
+
+	public int dashOptimizer = 5;
+	private int counter;
+	
+	public int blinkCounter = 2;
+	private Color normal;
+	private Color appear;
+	private Color disappear;
+	private bool isAppeared = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        spriteRend = GameObject.FindGameObjectWithTag("PlayerSprite").GetComponent<SpriteRenderer>();
         anim = GameObject.FindGameObjectWithTag("PlayerSprite").GetComponent<Animator>();
         transform = GetComponent<Transform>();
+        appear = new Color(1, 1, 1, 1);
+        disappear = new Color(1, 1, 1, 0);
     }
 
     // Update is called once per frame
@@ -28,13 +41,32 @@ public class PlayerAnimator : MonoBehaviour
 
     private void animator() {
 
+    	if (PlayerStats.invincibleTimer.isEnabled()) {
+    		if (counter % blinkCounter == 0) {
+    			if (isAppeared) {
+    				spriteRend.color = disappear;
+    				isAppeared = false;
+    			} else {
+					spriteRend.color = appear;
+    				isAppeared = true;
+    			}
+    		}
+    	} else if (!isAppeared) {
+    		spriteRend.color = appear;
+    		isAppeared = true;
+    	}
+
     	if (PlayerStats.isDash) {
     		if (PlayerStats.angle >= 0 || PlayerStats.angle < -180) {
     			anim.Play("DashL");
-    			afterImage(afterImageLeft);
+    			if (counter % dashOptimizer == 0) {
+	    			afterImage(afterImageLeft);
+    			}
     		} else {
     			anim.Play("DashR");
-    			afterImage(afterImageRight);
+    			if (counter % dashOptimizer == 0) {
+    				afterImage(afterImageRight);
+    			}
     		}
     	} else {
 	    	if (PlayerStats.isIdle) {
@@ -51,6 +83,8 @@ public class PlayerAnimator : MonoBehaviour
 	    		}
 	    	}
 	    }
+	    Debug.Log(counter);
+	    counter++;
     }
 
     private void afterImage(GameObject image) {
