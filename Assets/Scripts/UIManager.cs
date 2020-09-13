@@ -5,12 +5,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-	public Text life;
-
-    // Start is called before the first frame update
     void Start()
     {
-    	UIlifeUpdate();
+    	UIlifeUpdate();   
     }
 
     // Update is called once per frame
@@ -20,10 +17,12 @@ public class UIManager : MonoBehaviour
     }
 
     public void UIlifeUpdate() {
-    	life.text = "Player Life: " + PlayerStats.playerLife();
+       HealthManager.updateHealth(PlayerStats.playerLife());
+        //slider.value = PlayerStats.playerLife();
+    	//life.text = "Player Life: " + PlayerStats.playerLife();
     }
 
     public void UIplayerDead() {
-    	life.text = "Player is dead";
+    //	life.text = "Player is dead";
     }
 }

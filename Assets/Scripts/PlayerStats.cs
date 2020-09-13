@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class PlayerStats {
-	private static float maxLife = 3f;
-	private static float life = maxLife;
+	private static int maxLife = 3;
+	private static int life = maxLife;
 	private static bool isAlive = true;
 	public static float invincibleTime = 2f; 
 	public static Timer invincibleTimer = new Timer(invincibleTime);
@@ -15,19 +15,20 @@ public static class PlayerStats {
 	private static UIManager uiManager = GameObject
 											.FindGameObjectWithTag("Player")
 											.GetComponent<UIManager>();
+	
 
 	public static float angle;
 	public static bool isIdle;
 	public static bool isDash;
 
-	public static void lifeLost(float amount = 1f) {
+	public static void lifeLost(int amount = 1) {
 		if (!PlayerStats.invincibleTimer.isEnabled()){
 			lifeMod(-amount);
 			PlayerStats.invincibleTimer.reset();
 		}	
 	}
 
-	public static void lifeRecovered(float amount = 1f) {
+	public static void lifeRecovered(int amount = 1) {
 		lifeMod(amount);
 	}
 
@@ -40,12 +41,12 @@ public static class PlayerStats {
 		uiManager.UIplayerDead();
 	}
 
-	public static float playerLife() {
+	public static int playerLife() {
 		return life;
 	}
 
-	private static void lifeMod(float amount) {
-		float temp = life + amount;
+	private static void lifeMod(int amount) {
+		int temp = life + amount;
 		if (isAlive) { 
 			if (temp > maxLife) {
 				life = maxLife;
@@ -56,6 +57,6 @@ public static class PlayerStats {
 				life = temp;
 			}
 		}
-		uiManager.UIlifeUpdate();
+		//uiManager.UIlifeUpdate();
 	}
 }
