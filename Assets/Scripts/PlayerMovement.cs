@@ -80,9 +80,12 @@ public class PlayerMovement : MonoBehaviour
 				PlayerStats.lifeLost();
 				rb.position = new Vector2(0, 0);
 			}
-    	}
+    	}else if(other.gameObject.tag == "Ennemy"){
+			if (!dashTimer.isEnabled()){
+				PlayerStats.lifeLost();
+			}
+		}
     }
-
 
 	// We create the dust in the action we want
 	void CreateDust(){
