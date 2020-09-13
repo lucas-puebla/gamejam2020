@@ -14,6 +14,8 @@ public static class PlayerStats {
 	public static float dashCooldownTime = 2f;
 	public static Timer dashCooldownTimer = new Timer(dashCooldownTime);
 	
+	public static int ennemiesKilled = 0;
+	public static int weaponDamage = 1;
 
 	public static float angle;
 	public static bool isIdle;

@@ -83,7 +83,9 @@ public class PlayerAnimator : MonoBehaviour
 	    		}
 	    	}
 	    }
-	    Debug.Log(counter);
+	    if (counter == 10) {
+	    	counter = 0;
+	    }
 	    counter++;
     }
 

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1162796638393575306}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 1707628914600830480, guid: 245a15eb563c848489fb6781a46e63f9,
     type: 3}
+  effectLifeTime: 0.3
 --- !u!95 &1162796638393575306
 Animator:
   serializedVersion: 3
