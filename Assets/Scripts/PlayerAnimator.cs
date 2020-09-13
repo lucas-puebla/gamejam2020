@@ -22,19 +22,26 @@ public class PlayerAnimator : MonoBehaviour
 
     private void animator() {
 
-    	if (PlayerStats.isIdle) {
-    		anim.Play("Idle");
-    	} else {
-    		// Debug.Log("Angle: " + PlayerStats.angle);
-    		if (PlayerStats.angle >= 45f || PlayerStats.angle < -225f) {
-    			anim.Play("Walkleft");
-    		} else if (PlayerStats.angle >= -45f && PlayerStats.angle < 45f) {
-    			anim.Play("Walkback");
-    		} else if (PlayerStats.angle >= -135f && PlayerStats.angle < -45f) {
-    			anim.Play("Walkright");
-    		} else if (PlayerStats.angle >= -225f && PlayerStats.angle < -135f) {
-    			anim.Play("Walkfront");
+    	if (PlayerStats.isDash) {
+    		if (PlayerStats.angle >= 0 || PlayerStats.angle < -180) {
+    			anim.Play("DashL");
+    		} else {
+    			anim.Play("DashR");
     		}
-    	}
+    	} else {
+	    	if (PlayerStats.isIdle) {
+	    		anim.Play("Idle");
+	    	} else {
+	    		if (PlayerStats.angle >= 45f || PlayerStats.angle < -225f) {
+	    			anim.Play("Walkleft");
+	    		} else if (PlayerStats.angle >= -45f && PlayerStats.angle < 45f) {
+	    			anim.Play("Walkback");
+	    		} else if (PlayerStats.angle >= -135f && PlayerStats.angle < -45f) {
+	    			anim.Play("Walkright");
+	    		} else if (PlayerStats.angle >= -225f && PlayerStats.angle < -135f) {
+	    			anim.Play("Walkfront");
+	    		}
+	    	}
+	    }
     }
 }

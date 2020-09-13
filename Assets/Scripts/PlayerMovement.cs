@@ -45,9 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update() {
     	if (Input.GetButtonDown("Dash") && !dashCooldownTimer.isEnabled()) {
-			CreateDust();
-    		dashTimer.reset();
-    		dashCooldownTimer.reset();
+			doDash();
     		// TODO when entering dash mode, cannot be damaged
     	}
 
@@ -60,9 +58,7 @@ public class PlayerMovement : MonoBehaviour
         movement = new Vector2(velX, velY);
 
         // Countdowns
-        dashTimer.countDown();
-        dashCooldownTimer.countDown();
-		PlayerStats.invincibleTimer.countDown();
+        checkDash();
         // TODO Remove this
         if (debug) {
         	if (!PlayerStats.playerAlive()) {
@@ -103,14 +99,28 @@ public class PlayerMovement : MonoBehaviour
 				PlayerStats.lifeLost();
 				rb.position = new Vector2(0, 0);
 			}
-    		// TODO consider rewsetting position when entering hole
-    		// TODO when dashing, player is invincible
     	}
     }
 
 
-	//We create the dust in the action we want
+	// We create the dust in the action we want
 	void CreateDust(){
 		dust.Play();
+	}
+
+	public void doDash() {
+		CreateDust();
+		dashTimer.reset();
+		dashCooldownTimer.reset();
+		PlayerStats.isDash = true;
+	}
+
+	public void checkDash() {
+		dashTimer.countDown();
+        dashCooldownTimer.countDown();
+		PlayerStats.invincibleTimer.countDown();
+		if (!dashTimer.isEnabled()) {
+			PlayerStats.isDash = false;
+		}
 	}
 }

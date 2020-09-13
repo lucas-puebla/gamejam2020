@@ -14,6 +14,7 @@ public static class PlayerStats {
 
 	public static float angle;
 	public static bool isIdle;
+	public static bool isDash;
 
 	public static void lifeLost(float amount = 1f) {
 		if (!PlayerStats.invincibleTimer.isEnabled()){

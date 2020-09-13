@@ -828,8 +828,8 @@ MonoBehaviour:
   dust: {fileID: 1760755929}
   speed: 1
   dashCooldownTime: 1
-  dashTime: 0.1
-  dashSpeed: 5
+  dashTime: 0.2
+  dashSpeed: 4
   debug: 1
 --- !u!58 &945113866
 CircleCollider2D:
