@@ -15,6 +15,7 @@ public class EnnemyStatus : MonoBehaviour
     private bool isAlive = true;
 
     private SpriteRenderer sr;
+    private AudioSource source;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class EnnemyStatus : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         transform = GetComponent<Transform>();
+        source = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -52,7 +54,7 @@ public class EnnemyStatus : MonoBehaviour
 
     public void isDead() {
         isAlive = false;
-        PlayerStats.ennemiesKilled += 1;
+        PlayerStats.ennemiesKilled += 1;;
         Destroy(gameObject);
     }
 

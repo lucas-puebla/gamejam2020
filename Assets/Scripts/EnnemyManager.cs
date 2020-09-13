@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnnemyManager : MonoBehaviour
 {
@@ -16,7 +17,13 @@ public class EnnemyManager : MonoBehaviour
 	// public GameObject ennemyPrefab2;
 
 	private int counter;
-	public int[] waves;
+	private int[] waves;
+	public int wave1;
+	public int wave2;
+	public int wave3;
+	public int wave4;
+	public int wave5;
+	public int previousAccumulatedDeaths;
 
 
     // Start is called before the first frame update
@@ -25,7 +32,7 @@ public class EnnemyManager : MonoBehaviour
     	spawnPoints = new Transform[4] {spawnPoint1, spawnPoint2, spawnPoint3, spawnPoint4};
 		PlayerStats.resetWaveCounter();
     	counter = 0;
-        waves = new int[3] {5, 7, 10};
+        waves = new int[5] {wave1, wave2, wave3, wave4, wave5};
         InvokeRepeating("spawnEnnemy", 0f, 0.5f);
         InvokeRepeating("checkWave", 5f, 3f);
     }
@@ -47,11 +54,13 @@ public class EnnemyManager : MonoBehaviour
     }
 
     public void checkWave() {
-    	if (PlayerStats.ennemiesKilled == accKills()) {
+    	if (PlayerStats.ennemiesKilled == (previousAccumulatedDeaths + accKills())) {
     		if ((PlayerStats.currentWave + 1) < waves.Length) {
     			waveCleared();
+    		} else {
+	    		PlayerStats.levelCompleted();
+	    		SceneManager.LoadScene(PlayerStats.levelName[PlayerStats.currentLevel]);
     		}
-    		// SceneManager.LoadScene()
     	}
     }
 

@@ -9,6 +9,7 @@ TagManager:
   - Ennemy
   - Health
   - Bullet
+  - EnnemySound
   layers:
   - Default
   - TransparentFX

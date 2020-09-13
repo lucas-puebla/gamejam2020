@@ -28,10 +28,16 @@ public class PlayerMovement : MonoBehaviour
 	public Image pauseOverlay;
 	private Timer pauseTimer;
 
+	public Vector2 spawnPosition;
+
     // Start is called before the first frame update
     void Start()
     {
-    	PlayerStats.playerSpawn();
+    	if (PlayerStats.currentLevel == 0) {
+    		PlayerStats.firstSpawn();
+    	} else {
+	    	PlayerStats.playerSpawn();
+    	}
         rb = GetComponent<Rigidbody2D>();
 		rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 		transform = GetComponent<Transform>();
@@ -86,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
     	if (other.gameObject.tag == "Hole") {
 			if (!PlayerStats.dashTimer.isEnabled()){
 				PlayerStats.lifeLost();
-				rb.position = new Vector2(0, 0);
+				rb.position = spawnPosition;
 			}
     	}else {
     		ennemyInteraction(other);

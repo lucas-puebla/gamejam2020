@@ -18,6 +18,8 @@ public static class PlayerStats {
 	public static int weaponDamage = 1;
 
 	public static int currentWave = 0;
+	public static string[] levelName = new string[2] {"Level1", "Level2"};
+	public static int currentLevel = 0;
 
 	public static float angle;
 	public static bool isIdle;
@@ -55,6 +57,10 @@ public static class PlayerStats {
 
 	public static void playerSpawn() {
 		currentWave = 0;
+	}
+
+	public static void firstSpawn() {
+		currentWave = 0;
 		ennemiesKilled = 0;
 	}
 
@@ -78,5 +84,11 @@ public static class PlayerStats {
 
 	public static void resetWaveCounter() {
 		currentWave = 0;
+	}
+
+	public static void levelCompleted() {
+		if ((currentLevel + 1) < levelName.Length) {
+			currentLevel++;
+		}
 	}
 }
