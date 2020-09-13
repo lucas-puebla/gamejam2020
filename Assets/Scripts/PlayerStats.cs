@@ -12,9 +12,6 @@ public static class PlayerStats {
 	public static Timer dashTimer = new Timer(dashTime);
 	public static float dashCooldownTime = 2f;
 	public static Timer dashCooldownTimer = new Timer(dashCooldownTime);
-	private static UIManager uiManager = GameObject
-											.FindGameObjectWithTag("Player")
-											.GetComponent<UIManager>();
 	
 
 	public static float angle;
@@ -38,7 +35,6 @@ public static class PlayerStats {
 
 	public static void playerDead(){
 		isAlive = false;
-		uiManager.UIplayerDead();
 	}
 
 	public static int playerLife() {
@@ -57,6 +53,5 @@ public static class PlayerStats {
 				life = temp;
 			}
 		}
-		//uiManager.UIlifeUpdate();
 	}
 }

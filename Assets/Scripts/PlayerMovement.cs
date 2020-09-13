@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 	private Rigidbody2D rb;
-	public UIManager uiManager;
 	public ParticleSystem dust;
 
 	// Respawn
@@ -28,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 		rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-		uiManager = GetComponent<UIManager>();
 		transform = GetComponent<Transform>();
     }
 
