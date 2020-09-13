@@ -168,7 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8276715753934493037}
   - component: {fileID: 8276715753934493036}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: DamageRadius
   m_TagString: Ennemy
   m_Icon: {fileID: 0}

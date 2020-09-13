@@ -23,8 +23,8 @@ TagManager:
   - Holes
   - Ennemy
   - EnnemyCollider
-  - 
-  - 
+  - EnnemyHitbox
+  - Player
   - 
   - 
   - 

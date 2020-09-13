@@ -71,11 +71,13 @@ public class PlayerMovement : MonoBehaviour
 				PlayerStats.lifeLost();
 				rb.position = new Vector2(0, 0);
 			}
-    	}else if(other.gameObject.tag == "Ennemy"){
-			if (!PlayerStats.dashTimer.isEnabled()){
-				PlayerStats.lifeLost();
-			}
-		}
+    	}else {
+    		ennemyInteraction(other);
+    	}
+    }
+
+    private void OnTriggerStay2D(Collider2D other) {
+    	ennemyInteraction(other);
     }
 
 	// We create the dust in the action we want
@@ -96,6 +98,14 @@ public class PlayerMovement : MonoBehaviour
 		PlayerStats.invincibleTimer.countDown();
 		if (!PlayerStats.dashTimer.isEnabled()) {
 			PlayerStats.isDash = false;
+		}
+	}
+
+	private void ennemyInteraction(Collider2D other) {
+		if(other.gameObject.tag == "Ennemy"){
+			if (!PlayerStats.dashTimer.isEnabled()){
+				PlayerStats.lifeLost();
+			}
 		}
 	}
 }
