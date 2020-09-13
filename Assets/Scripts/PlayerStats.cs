@@ -17,6 +17,8 @@ public static class PlayerStats {
 	public static int ennemiesKilled = 0;
 	public static int weaponDamage = 1;
 
+	public static int currentWave = 0;
+
 	public static float angle;
 	public static bool isIdle;
 	public static bool isDash;
@@ -63,5 +65,13 @@ public static class PlayerStats {
 				life = temp;
 			}
 		}
+	}
+
+	public static void waveCompleted() {
+		currentWave++;
+	}
+
+	public static void resetWaveCounter() {
+		currentWave = 0;
 	}
 }

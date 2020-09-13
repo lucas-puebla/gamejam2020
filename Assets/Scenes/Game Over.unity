@@ -150,7 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6744e76b37b7c34f8b214c8a60854fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 2062524709}
+  deathCount: {fileID: 2062524709}
+  wave: {fileID: 0}
 --- !u!4 &443207672
 Transform:
   m_ObjectHideFlags: 0

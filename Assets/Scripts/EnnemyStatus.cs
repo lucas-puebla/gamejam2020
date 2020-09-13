@@ -4,26 +4,32 @@ using UnityEngine;
 
 public class EnnemyStatus : MonoBehaviour
 {
-    public Transform player;
+    private Transform player;
+    private Transform transform;
     private Rigidbody2D rb;
     private Vector2 movement;
     public float moveSpeed = 1f;
 
-    public int health = 5;
+    public int maxHealth = 5;
+    private int health;
     private bool isAlive = true;
 
+    private SpriteRenderer sr;
 
     void Start()
     {
-        rb = this.GetComponent<Rigidbody2D>();
+        health = maxHealth;
+        rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        sr = GetComponent<SpriteRenderer>();
+        player = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        transform = GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 direction = player.position - transform.position;
-        direction.Normalize();
         movement = direction;
     }
 
@@ -31,16 +37,17 @@ public class EnnemyStatus : MonoBehaviour
         moveCharacter(movement);
     }
 
-    void moveCharacter(Vector2 direction){
+    public void moveCharacter(Vector2 direction) {
         rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
     }
 
     public void hit(int amount = 1) {
         health -= amount;
-        Debug.Log(health);
         if (health <= 0) {
             isDead();
         }
+        changeColor();
+        changeSpeed();
     }
 
     public void isDead() {
@@ -53,5 +60,15 @@ public class EnnemyStatus : MonoBehaviour
         if (other.gameObject.tag == "Bullet") {
             hit(PlayerStats.weaponDamage);
         }
+    }
+
+    private void changeColor() {
+        float rate = ((float) health) / ((float) maxHealth);
+        sr.color = new Color(rate, rate, 1, 1);
+    }
+
+    private void changeSpeed() {
+        float rate = ((float) maxHealth) / ((float) health);
+        moveSpeed = rate;
     }
 }

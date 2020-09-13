@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   moveSpeed: 0.3
-  health: 5
+  maxHealth: 5
 --- !u!50 &8276715753483541649
 Rigidbody2D:
   serializedVersion: 4

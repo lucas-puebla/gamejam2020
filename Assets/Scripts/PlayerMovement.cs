@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -22,28 +23,43 @@ public class PlayerMovement : MonoBehaviour
 	// Dash
 	public float dashSpeed = 5f;
 
+	// Pause
+	private bool isPause = false;
+	public Image pauseOverlay;
+	private Timer pauseTimer;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 		rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 		transform = GetComponent<Transform>();
+		pauseTimer = new Timer(0.1f);
     }
 
     void Update() {
-    	if (Input.GetButtonDown("Dash") && !PlayerStats.dashCooldownTimer.isEnabled()) {
-			doDash();
-    	}
+    	if (!isPause) {
+	    	if (Input.GetButtonDown("Dash") && !PlayerStats.dashCooldownTimer.isEnabled()) {
+				doDash();
+	    	}
 
-    	if (PlayerStats.dashTimer.isEnabled()) {
-    		setSpeed(dashSpeed);
-    	} else {
-    		setSpeed(speed);
-    	}
+	    	if (PlayerStats.dashTimer.isEnabled()) {
+	    		setSpeed(dashSpeed);
+	    	} else {
+	    		setSpeed(speed);
+	    	}
 
-        movement = new Vector2(velX, velY);
+	        movement = new Vector2(velX, velY);
 
-        checkDash();
+	        checkDash();
+		}
+		pause();
+
+		if (Input.GetKey(KeyCode.Escape) && !pauseTimer.isEnabled()) {
+			pauseTimer.reset();
+			isPause = !isPause;
+		}
+		pauseTimer.countDown();
     }
 
 
@@ -107,5 +123,16 @@ public class PlayerMovement : MonoBehaviour
 				PlayerStats.lifeLost();
 			}
 		}
+	}
+
+	private void pause() {
+		if (isPause) {
+			Time.timeScale = 0.05f;
+			pauseOverlay.color = new Color(1, 1, 1, 1);
+		} else {
+			Time.timeScale = 1f;
+			pauseOverlay.color = new Color(1, 1, 1, 0);
+		}
+
 	}
 }
