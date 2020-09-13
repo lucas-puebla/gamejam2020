@@ -6,8 +6,12 @@ public static class PlayerStats {
 	private static float maxLife = 3f;
 	private static float life = maxLife;
 	private static bool isAlive = true;
-	private static float invincibleTime = 2f; 
+	public static float invincibleTime = 2f; 
 	public static Timer invincibleTimer = new Timer(invincibleTime);
+	public static float dashTime = 0.15f;
+	public static Timer dashTimer = new Timer(dashTime);
+	public static float dashCooldownTime = 2f;
+	public static Timer dashCooldownTimer = new Timer(dashCooldownTime);
 	private static UIManager uiManager = GameObject
 											.FindGameObjectWithTag("Player")
 											.GetComponent<UIManager>();

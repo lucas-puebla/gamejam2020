@@ -21,18 +21,11 @@ public class PlayerMovement : MonoBehaviour
 	public float speed = 1f;
 
 	// Dash
-	private Timer dashCooldownTimer;
-	public float dashCooldownTime = 2f;
-	
-	private Timer dashTimer;
-	public float dashTime = 0.15f;
 	public float dashSpeed = 5f;
 
     // Start is called before the first frame update
     void Start()
     {
-    	dashTimer = new Timer(dashTime);
-		dashCooldownTimer = new Timer(dashCooldownTime);
         rb = GetComponent<Rigidbody2D>();
 		rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 		uiManager = GetComponent<UIManager>();
@@ -40,11 +33,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update() {
-    	if (Input.GetButtonDown("Dash") && !dashCooldownTimer.isEnabled()) {
+    	if (Input.GetButtonDown("Dash") && !PlayerStats.dashCooldownTimer.isEnabled()) {
 			doDash();
     	}
 
-    	if (dashTimer.isEnabled()) {
+    	if (PlayerStats.dashTimer.isEnabled()) {
     		setSpeed(dashSpeed);
     	} else {
     		setSpeed(speed);
@@ -76,12 +69,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
     	if (other.gameObject.tag == "Hole") {
-			if (!dashTimer.isEnabled()){
+			if (!PlayerStats.dashTimer.isEnabled()){
 				PlayerStats.lifeLost();
 				rb.position = new Vector2(0, 0);
 			}
     	}else if(other.gameObject.tag == "Ennemy"){
-			if (!dashTimer.isEnabled()){
+			if (!PlayerStats.dashTimer.isEnabled()){
 				PlayerStats.lifeLost();
 			}
 		}
@@ -94,16 +87,16 @@ public class PlayerMovement : MonoBehaviour
 
 	public void doDash() {
 		CreateDust();
-		dashTimer.reset();
-		dashCooldownTimer.reset();
+		PlayerStats.dashTimer.reset();
+		PlayerStats.dashCooldownTimer.reset();
 		PlayerStats.isDash = true;
 	}
 
 	public void checkDash() {
-		dashTimer.countDown();
-        dashCooldownTimer.countDown();
+		PlayerStats.dashTimer.countDown();
+        PlayerStats.dashCooldownTimer.countDown();
 		PlayerStats.invincibleTimer.countDown();
-		if (!dashTimer.isEnabled()) {
+		if (!PlayerStats.dashTimer.isEnabled()) {
 			PlayerStats.isDash = false;
 		}
 	}

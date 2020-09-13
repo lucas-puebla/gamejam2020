@@ -54,6 +54,10 @@ public class PlayerAnimator : MonoBehaviour
     }
 
     private void afterImage(GameObject image) {
+    	// float dashRate = (PlayerStats.dashTimer.getMaxTime() - PlayerStats.dashTimer.getRemTime()) / PlayerStats.dashTimer.getMaxTime();
+    	// float alpha = Mathf.Lerp(0.1f, 1f, dashRate);
+    	// float blue = Mathf.Lerp(0.5f, 1f, dashRate);
+    	// image.GetComponent<SpriteRenderer>().color = new Color(0, 0, blue, alpha);
     	GameObject afterImage = Instantiate(image, transform.position, transform.rotation);
     	Destroy(afterImage, afterImageLifetime);
     }
