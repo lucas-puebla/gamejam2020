@@ -23,14 +23,10 @@ public class PlayerMovement : MonoBehaviour
 	// Dash
 	private Timer dashCooldownTimer;
 	public float dashCooldownTime = 2f;
-
+	
 	private Timer dashTimer;
 	public float dashTime = 0.15f;
 	public float dashSpeed = 5f;
-
-	// debug
-	public bool debug = true;
-
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
     void Update() {
     	if (Input.GetButtonDown("Dash") && !dashCooldownTimer.isEnabled()) {
 			doDash();
-    		// TODO when entering dash mode, cannot be damaged
     	}
 
     	if (dashTimer.isEnabled()) {
@@ -57,21 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
         movement = new Vector2(velX, velY);
 
-        // Countdowns
         checkDash();
-        // TODO Remove this
-        if (debug) {
-        	if (!PlayerStats.playerAlive()) {
-    		uiManager.UIplayerDead();
-	    	}
-
-	        if (Input.GetButtonDown("Fire1")) {
-	        	PlayerStats.lifeLost();
-	        }
-	        if (Input.GetButtonDown("Dash")) {
-	        	PlayerStats.lifeRecovered();
-	        }
-        }
     }
 
 
