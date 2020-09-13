@@ -6,11 +6,17 @@ public class PlayerAnimator : MonoBehaviour
 {
 
 	private Animator anim;
+	private Transform transform;
+
+	public GameObject afterImageLeft;
+	public GameObject afterImageRight;
+	public float afterImageLifetime = 0.1f; 
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GameObject.FindGameObjectWithTag("PlayerSprite").GetComponent<Animator>();
+        transform = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -25,8 +31,10 @@ public class PlayerAnimator : MonoBehaviour
     	if (PlayerStats.isDash) {
     		if (PlayerStats.angle >= 0 || PlayerStats.angle < -180) {
     			anim.Play("DashL");
+    			afterImage(afterImageLeft);
     		} else {
     			anim.Play("DashR");
+    			afterImage(afterImageRight);
     		}
     	} else {
 	    	if (PlayerStats.isIdle) {
@@ -43,5 +51,10 @@ public class PlayerAnimator : MonoBehaviour
 	    		}
 	    	}
 	    }
+    }
+
+    private void afterImage(GameObject image) {
+    	GameObject afterImage = Instantiate(image, transform.position, transform.rotation);
+    	Destroy(afterImage, afterImageLifetime);
     }
 }
