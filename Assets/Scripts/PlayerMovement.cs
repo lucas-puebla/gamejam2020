@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    	PlayerStats.playerSpawn();
         rb = GetComponent<Rigidbody2D>();
 		rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 		transform = GetComponent<Transform>();

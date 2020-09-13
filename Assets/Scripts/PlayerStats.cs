@@ -53,6 +53,11 @@ public static class PlayerStats {
 		return life;
 	}
 
+	public static void playerSpawn() {
+		currentWave = 0;
+		ennemiesKilled = 0;
+	}
+
 	private static void lifeMod(int amount) {
 		int temp = life + amount;
 		if (isAlive) { 
