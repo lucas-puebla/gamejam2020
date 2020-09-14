@@ -46,11 +46,10 @@ public class EnnemyManager : MonoBehaviour
 
     void Update() {
     	if (Input.GetButtonDown("Fire2") && testSpawnTimer.isEnabled()) {
-    		int random = Random.Range(0, 3);
+    		int random = Random.Range(0, 4);
 			Instantiate(ennemyPrefab1, spawnPoints[random].position, spawnPoints[random].rotation);
 			testSpawnTimer.reset();
 		}
-
 		testSpawnTimer.countDown();
     }
 
@@ -61,7 +60,7 @@ public class EnnemyManager : MonoBehaviour
 
     public void spawnEnnemy() {
     	if (!testMode) {
-	    	int random = Random.Range(0, 3);
+	    	int random = Random.Range(0, 4);
 	    	if (PlayerStats.currentWave < waves.Length) {
 		    	if (counter < waves[PlayerStats.currentWave]) {
 		    		Instantiate(ennemyPrefab1, spawnPoints[random].position, spawnPoints[random].rotation);

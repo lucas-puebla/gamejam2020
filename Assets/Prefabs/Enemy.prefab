@@ -60,7 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7314893f50cd2cf4bbe2678a24c10dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ennemyAnim: {fileID: 0}
   isAttacking: 0
+  animTime: 1
 --- !u!1 &8276715753483541663
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +202,7 @@ MonoBehaviour:
   moveSpeed: 0.3
   maxHealth: 5
   colorRate: 1
-  speedRate: 1.2
+  speedRate: 1
   animSpeedRate: 1.2
   perceptionPoint: {fileID: 879325958249091122}
 --- !u!50 &8276715753483541649
