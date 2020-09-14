@@ -7238,27 +7238,27 @@ PrefabInstance:
     - target: {fileID: 4461772772326818149, guid: f0b4ddc25b5e7904bb3ee53bf5a9a04f,
         type: 3}
       propertyPath: wave1
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4461772772326818149, guid: f0b4ddc25b5e7904bb3ee53bf5a9a04f,
         type: 3}
       propertyPath: wave2
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4461772772326818149, guid: f0b4ddc25b5e7904bb3ee53bf5a9a04f,
         type: 3}
       propertyPath: wave3
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4461772772326818149, guid: f0b4ddc25b5e7904bb3ee53bf5a9a04f,
         type: 3}
       propertyPath: wave4
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4461772772326818149, guid: f0b4ddc25b5e7904bb3ee53bf5a9a04f,
         type: 3}
       propertyPath: wave5
-      value: 15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4461772772326818149, guid: f0b4ddc25b5e7904bb3ee53bf5a9a04f,
         type: 3}

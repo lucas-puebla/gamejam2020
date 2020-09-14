@@ -18,7 +18,7 @@ public static class PlayerStats {
 	public static int weaponDamage = 1;
 
 	public static int currentWave = 0;
-	public static string[] levelName = new string[2] {"Level1", "Level2"};
+	public static string[] levelName = new string[4] {"Level1", "Level2", "Level3", "Level4" };
 	public static int currentLevel = 0;
 
 	public static float angle;
@@ -87,6 +87,7 @@ public static class PlayerStats {
 	}
 
 	public static void levelCompleted() {
+		
 		if ((currentLevel + 1) < levelName.Length) {
 			currentLevel++;
 		}
