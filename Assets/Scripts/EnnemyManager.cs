@@ -16,6 +16,7 @@ public class EnnemyManager : MonoBehaviour
 	public GameObject ennemyPrefab1;
 	// public GameObject ennemyPrefab2;
 
+	private int accKills;
 	private int counter;
 	private int[] waves;
 	public int wave1;
@@ -23,7 +24,10 @@ public class EnnemyManager : MonoBehaviour
 	public int wave3;
 	public int wave4;
 	public int wave5;
-	public int previousAccumulatedDeaths;
+
+	public bool testMode;
+	public float testSpawnTime;
+	private Timer testSpawnTimer;
 
 
     // Start is called before the first frame update
@@ -31,30 +35,44 @@ public class EnnemyManager : MonoBehaviour
     {
     	spawnPoints = new Transform[4] {spawnPoint1, spawnPoint2, spawnPoint3, spawnPoint4};
 		PlayerStats.resetWaveCounter();
+    	accKills = PlayerStats.ennemiesKilled;
     	counter = 0;
         waves = new int[5] {wave1, wave2, wave3, wave4, wave5};
         InvokeRepeating("spawnEnnemy", 0f, 0.5f);
         InvokeRepeating("checkWave", 5f, 3f);
+
+        testSpawnTimer = new Timer(testSpawnTime);
+    }
+
+    void Update() {
+    	if (Input.GetButtonDown("Fire2") && testSpawnTimer.isEnabled()) {
+    		int random = Random.Range(0, 3);
+			Instantiate(ennemyPrefab1, spawnPoints[random].position, spawnPoints[random].rotation);
+			testSpawnTimer.reset();
+		}
+
+		testSpawnTimer.countDown();
     }
 
     public void waveCleared() {
 		PlayerStats.waveCompleted();
 		counter = 0;
-    	
     }
 
     public void spawnEnnemy() {
-    	int random = Random.Range(0, 3);
-    	if (PlayerStats.currentWave < waves.Length) {
-	    	if (counter < waves[PlayerStats.currentWave]) {
-	    		Instantiate(ennemyPrefab1, spawnPoints[random].position, spawnPoints[random].rotation);
-	    		counter++;
-	    	}
+    	if (!testMode) {
+	    	int random = Random.Range(0, 3);
+	    	if (PlayerStats.currentWave < waves.Length) {
+		    	if (counter < waves[PlayerStats.currentWave]) {
+		    		Instantiate(ennemyPrefab1, spawnPoints[random].position, spawnPoints[random].rotation);
+		    		counter++;
+		    	}
+		    }
 	    }
     }
 
     public void checkWave() {
-    	if (PlayerStats.ennemiesKilled == (previousAccumulatedDeaths + accKills())) {
+    	if (PlayerStats.ennemiesKilled == totalKills(accKills)) {
     		if ((PlayerStats.currentWave + 1) < waves.Length) {
     			waveCleared();
     		} else {
@@ -64,8 +82,8 @@ public class EnnemyManager : MonoBehaviour
     	}
     }
 
-    public int accKills() {
-    	int acc = 0;
+    public int totalKills(int accKills = 0) { 
+    	int acc = accKills;
     	for (int i = 0; i <= PlayerStats.currentWave ; i++) {
     		acc += waves[i];
     	}
