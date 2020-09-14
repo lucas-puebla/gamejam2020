@@ -81,6 +81,9 @@ public class EnnemyStatus : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public int getHealth() {
+        return health;
+    }
 
     public void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag == "Bullet") {
@@ -110,4 +113,5 @@ public class EnnemyStatus : MonoBehaviour
         // Debug.Log(vertRate + ", " + horRate);
         // sr.size += new Vector2(vertRate, horRate);
     }
+
 }

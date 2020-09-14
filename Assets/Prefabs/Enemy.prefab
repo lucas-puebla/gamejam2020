@@ -47,7 +47,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.04819876}
   serializedVersion: 2
-  m_Radius: 0.45180124
+  m_Radius: 0.53
 --- !u!114 &1565826572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,8 +202,6 @@ MonoBehaviour:
   colorRate: 1
   speedRate: 1.2
   animSpeedRate: 1.2
-  vertSize: 100
-  horSize: 100
   perceptionPoint: {fileID: 879325958249091122}
 --- !u!50 &8276715753483541649
 Rigidbody2D:
