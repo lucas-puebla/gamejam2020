@@ -10,9 +10,11 @@ public class EnnemyManager : MonoBehaviour
 	public Transform spawnPoint2;
 	public Transform spawnPoint3;
 	public Transform spawnPoint4;
+	public Transform spawnPoint5;
+	public int activeSpawnNum = 5;
 
 	private Transform[] spawnPoints;
-
+	private Transform[] activeSpawns;
 	public GameObject ennemyPrefab1;
 	// public GameObject ennemyPrefab2;
 
@@ -33,7 +35,11 @@ public class EnnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    	spawnPoints = new Transform[4] {spawnPoint1, spawnPoint2, spawnPoint3, spawnPoint4};
+    	spawnPoints = new Transform[5] {spawnPoint1, spawnPoint2, spawnPoint3, spawnPoint4, spawnPoint5};
+    	activeSpawns = new Transform[activeSpawnNum];
+    	for (int i = 0 ; i < activeSpawnNum; i++) {
+    		activeSpawns[i] = spawnPoints[i]; 
+    	}
 		PlayerStats.resetWaveCounter();
     	accKills = PlayerStats.ennemiesKilled;
     	counter = 0;
@@ -47,7 +53,7 @@ public class EnnemyManager : MonoBehaviour
     void Update() {
     	if (Input.GetButtonDown("Fire2") && testSpawnTimer.isEnabled()) {
     		int random = Random.Range(0, 4);
-			Instantiate(ennemyPrefab1, spawnPoints[random].position, spawnPoints[random].rotation);
+			Instantiate(ennemyPrefab1, activeSpawns[random].position, activeSpawns[random].rotation);
 			testSpawnTimer.reset();
 		}
 		testSpawnTimer.countDown();
@@ -63,7 +69,7 @@ public class EnnemyManager : MonoBehaviour
 	    	int random = Random.Range(0, 4);
 	    	if (PlayerStats.currentWave < waves.Length) {
 		    	if (counter < waves[PlayerStats.currentWave]) {
-		    		Instantiate(ennemyPrefab1, spawnPoints[random].position, spawnPoints[random].rotation);
+		    		Instantiate(ennemyPrefab1, activeSpawns[random].position, activeSpawns[random].rotation);
 		    		counter++;
 		    	}
 		    }
