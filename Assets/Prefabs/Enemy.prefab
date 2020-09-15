@@ -202,7 +202,7 @@ MonoBehaviour:
   moveSpeed: 0.3
   maxHealth: 5
   colorRate: 1
-  speedRate: 1
+  speedRate: 0.9
   animSpeedRate: 1.2
   perceptionPoint: {fileID: 879325958249091122}
 --- !u!50 &8276715753483541649

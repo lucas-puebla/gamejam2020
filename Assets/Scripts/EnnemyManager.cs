@@ -77,6 +77,7 @@ public class EnnemyManager : MonoBehaviour
     }
 
     public void checkWave() {
+    	// TODO fix bug about restarting and waves not starting
     	if (PlayerStats.ennemiesKilled == totalKills(accKills)) {
     		if ((PlayerStats.currentWave + 1) < waves.Length) {
     			waveCleared();

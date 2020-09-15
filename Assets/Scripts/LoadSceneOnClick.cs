@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneOnClick : MonoBehaviour
 {
-    public void LoadScene(string scene) {
-    	SceneManager.LoadScene(scene);
+    public void LoadScene(int level = 0) {
+    	PlayerStats.currentLevel = level; 
+    	SceneManager.LoadScene(PlayerStats.levelName[level]);
     }
 }

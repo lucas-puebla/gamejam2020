@@ -87,7 +87,7 @@ public static class PlayerStats {
 	}
 
 	public static void levelCompleted() {
-		
+
 		if ((currentLevel + 1) < levelName.Length) {
 			currentLevel++;
 		}
