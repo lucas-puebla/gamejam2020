@@ -30,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
 
 	public Vector2 spawnPosition;
 
+	public AudioSource hitSfx;
+	private bool isHit = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
 	        movement = new Vector2(velX, velY);
 
 	        checkDash();
+			checkIsHit();
 		}
 		pause();
 
@@ -90,11 +94,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
     	if (other.gameObject.tag == "Hole") {
-			if (!PlayerStats.dashTimer.isEnabled()){
+			if (!PlayerStats.dashTimer.isEnabled()) {
+				isHit = true;
 				PlayerStats.lifeLost();
 				rb.position = spawnPosition;
 			}
-    	}else {
+    	} else {
     		ennemyInteraction(other);
     	}
     }
@@ -124,9 +129,17 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
+	public void checkIsHit() {
+		if (isHit) {
+			hitSfx.Play();
+			isHit = false;
+		}
+	}
+
 	private void ennemyInteraction(Collider2D other) {
 		if(other.gameObject.tag == "Ennemy"){
-			if (!PlayerStats.dashTimer.isEnabled()){
+			if (!PlayerStats.dashTimer.isEnabled()) {
+				isHit = true;
 				PlayerStats.lifeLost();
 			}
 		}

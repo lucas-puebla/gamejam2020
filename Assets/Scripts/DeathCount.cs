@@ -19,12 +19,11 @@ public class DeathCount : MonoBehaviour
     }
 
     private void updateDeathCount() {
-    	deathCount.text = "x   " + PlayerStats.ennemiesKilled;
+    	deathCount.text = "x   " + PlayerStats.currentScore();
     }
 
     private void updateWave() {
     	wave.text = "WAVE    " + (PlayerStats.currentWave + 1);
     }
-
 
 }

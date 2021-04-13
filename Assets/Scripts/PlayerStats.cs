@@ -7,6 +7,7 @@ public static class PlayerStats {
 	private static int maxLife = 3;
 	private static int life = maxLife;
 	private static bool isAlive = true;
+	private static int score = 0;
 	public static float invincibleTime = 2f; 
 	public static Timer invincibleTimer = new Timer(invincibleTime);
 	public static float dashTime = 0.15f;
@@ -44,6 +45,8 @@ public static class PlayerStats {
 		isAlive = false;
 		SceneManager.LoadScene("Game Over");
 		playerResetLife();
+		score = ennemiesKilled;
+		ennemiesKilled = 0;
 	}
 
 	public static void playerResetLife() {
@@ -87,9 +90,16 @@ public static class PlayerStats {
 	}
 
 	public static void levelCompleted() {
-
 		if ((currentLevel + 1) < levelName.Length) {
 			currentLevel++;
+		}
+	}
+
+	public static int currentScore() {
+		if (ennemiesKilled == 0 && score != 0) {
+			return score;
+		} else {
+			return ennemiesKilled;
 		}
 	}
 }
